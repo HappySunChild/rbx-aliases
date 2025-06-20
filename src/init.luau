@@ -97,9 +97,9 @@ local class = table.freeze {
 }
 local METATABLE = table.freeze { __index = class }
 
-local function AliasConverter(): AliasConverter
+local function AliasConverter(initialRoot: Instance?): AliasConverter
 	local newConverter: Self = setmetatable({
-		_root = game,
+		_root = initialRoot or game,
 		_aliases = {},
 	}, METATABLE) :: any
 
