@@ -1,0 +1,16 @@
+{
+	"name": "aliases",
+	"tree": {
+		"$ignoreUnknownInstances": true,
+		"$className": "DataModel",
+		"ServerScriptService": {
+			"$ignoreUnknownInstances": true,
+			"AliasConverter": {
+				"$path": "src"
+			},
+			"Tests": {
+				"$path": "tests"
+			}
+		}
+	}
+}
