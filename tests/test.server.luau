@@ -1,9 +1,11 @@
 local ServerScriptService = game:GetService "ServerScriptService"
+local ReplicatedStorage = game:GetService "ReplicatedStorage"
+
+local exampleAliasPath = "@shared/Hello"
 
 local AliasConverter = require(ServerScriptService.AliasConverter)
 
-local tests = ServerScriptService.Tests
-
 local converter = AliasConverter()
-converter:registerAlias("tests", tests)
-print(converter:convertAliases("@tests/Module", workspace.Baseplate))
+converter:registerAlias("shared", ReplicatedStorage)
+
+print(converter:convertAliases(exampleAliasPath, script)) --> "../ReplicatedStorage/Hello"
