@@ -1,7 +1,7 @@
 export type AliasConverter = {
-	setRoot: (self: AliasConverter, root: Instance) -> (),
-	registerAlias: (self: AliasConverter, alias: string, reference: Instance) -> (),
-	deregisterAlias: (self: AliasConverter, alias: string) -> (),
+	setRoot: (self: AliasConverter, root: Instance) -> AliasConverter,
+	registerAlias: (self: AliasConverter, alias: string, reference: Instance) -> AliasConverter,
+	deregisterAlias: (self: AliasConverter, alias: string) -> AliasConverter,
 
 	getAbsolutePath: (self: AliasConverter, target: Instance) -> (string, { string }),
 	getRelativePath: (self: AliasConverter, from: Instance, to: Instance) -> (string, { string }),
@@ -14,15 +14,21 @@ type Self = AliasConverter & {
 }
 
 local class = table.freeze {
-	setRoot = function(self: Self, root: Instance)
+	setRoot = function(self: Self, root: Instance): Self
 		self._root = root
+
+		return self
 	end,
 
-	registerAlias = function(self: Self, alias: string, reference: Instance)
+	registerAlias = function(self: Self, alias: string, reference: Instance): Self
 		self._aliases[alias] = reference
+
+		return self
 	end,
-	deregisterAlias = function(self: Self, alias: string)
+	deregisterAlias = function(self: Self, alias: string): Self
 		self._aliases[alias] = nil
+
+		return self
 	end,
 
 	getAbsolutePath = function(self: Self, target: Instance): (string, { string })
