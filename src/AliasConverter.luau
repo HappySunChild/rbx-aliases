@@ -27,7 +27,7 @@ local class = table.freeze {
 		self._aliases[alias] = nil
 	end,
 
-	getAbsolutePath = function(self: Self, target: Instance)
+	getAbsolutePath = function(self: Self, target: Instance): (string, { string })
 		local root = self._root
 
 		if not target:IsDescendantOf(root) then
@@ -45,7 +45,7 @@ local class = table.freeze {
 
 		return table.concat(dirs, "/"), dirs
 	end,
-	getRelativePath = function(self: Self, from: Instance, to: Instance)
+	getRelativePath = function(self: Self, from: Instance, to: Instance): (string, { string })
 		local _, originPath = self:getAbsolutePath(from)
 		local _, targetPath = self:getAbsolutePath(to)
 
@@ -75,7 +75,7 @@ local class = table.freeze {
 		return table.concat(relativeDirs, "/"), relativeDirs
 	end,
 
-	convertAliases = function(self: Self, path: string, relative: Instance)
+	convertAliases = function(self: Self, path: string, relative: Instance): string
 		local converted = string.gsub(path, "@([^/]+)", function(alias: string)
 			if alias == "self" then
 				return "@self"
