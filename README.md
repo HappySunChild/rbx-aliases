@@ -7,13 +7,12 @@ A utility module for manually converting aliases to relative paths.
 
 local ReplicatedStorage = game:GetService "ReplicatedStorage"
 
-local exampleAliasPath = "@shared/Hello"
-
 local AliasConverter = require("path/to/alias-converter")
 
 local converter = AliasConverter()
 converter:registerAlias("shared", ReplicatedStorage)
 
-print(converter:convertAliases(exampleAliasPath, script)) --> "../ReplicatedStorage/Hello"
+local exampleAliasPath = "@shared/Hello"
 
+print(converter:convertAliases(exampleAliasPath, script)) --> "../ReplicatedStorage/Hello"
 ```
