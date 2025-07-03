@@ -1,4 +1,4 @@
-type AliasConverter = {
+export type AliasConverter = {
 	setRoot: (AliasConverter, root: Instance) -> (),
 
 	registerAlias: (AliasConverter, alias: string, reference: Instance) -> (),
