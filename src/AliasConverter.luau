@@ -50,6 +50,8 @@ local class = table.freeze {
 
 	inheritAliases = function(self: Self, parent: Self): Self
 		self:bulkRegisterAliases(parent._aliases)
+
+		return self
 	end,
 
 	getAbsolutePath = function(self: Self, target: Instance): (string, { string })
