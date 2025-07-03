@@ -5,7 +5,7 @@
 		"$className": "DataModel",
 		"ServerScriptService": {
 			"$ignoreUnknownInstances": true,
-			"AliasConverter": {
+			"Modules": {
 				"$path": "src"
 			},
 			"Tests": {
