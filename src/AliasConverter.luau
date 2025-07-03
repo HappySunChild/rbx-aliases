@@ -5,6 +5,8 @@ export type AliasConverter = {
 	bulkRegisterAliases: (self: AliasConverter, references: { [string]: Instance }) -> AliasConverter,
 	bulkDeregisterAliases: (self: AliasConverter, aliases: { string }) -> AliasConverter,
 
+	inheritAliases: (Self: AliasConverter, parent: AliasConverter) -> AliasConverter,
+
 	getAbsolutePath: (self: AliasConverter, target: Instance) -> (string, { string }),
 	getRelativePath: (self: AliasConverter, from: Instance, to: Instance) -> (string, { string }),
 	convertAliases: (self: AliasConverter, path: string, relative: Instance) -> string,
@@ -44,6 +46,10 @@ local class = table.freeze {
 		end
 
 		return self
+	end,
+
+	inheritAliases = function(self: Self, parent: Self): Self
+		self:bulkRegisterAliases(parent._aliases)
 	end,
 
 	getAbsolutePath = function(self: Self, target: Instance): (string, { string })
