@@ -6,6 +6,4 @@ local AliasConverter = require(ServerScriptService.Modules.AliasConverter)
 local converter = AliasConverter()
 converter:registerAlias("shared", ReplicatedStorage)
 
-local exampleAliasPath = "@shared/Hello"
-
-print(converter:convertAliases(exampleAliasPath, script)) --> "../ReplicatedStorage/Hello"
+print(converter:convertAliases("@shared/Hello", script)) --> "../ReplicatedStorage/Hello"
