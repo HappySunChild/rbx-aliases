@@ -1,13 +1,11 @@
 export type AliasConverter = {
-	setRoot: (AliasConverter, root: Instance) -> (),
+	setRoot: (self: AliasConverter, root: Instance) -> (),
+	registerAlias: (self: AliasConverter, alias: string, reference: Instance) -> (),
+	deregisterAlias: (self: AliasConverter, alias: string) -> (),
 
-	registerAlias: (AliasConverter, alias: string, reference: Instance) -> (),
-	deregisterAlias: (AliasConverter, alias: string) -> (),
-
-	getAbsolutePath: (AliasConverter, target: Instance) -> (string, { string }),
-	getRelativePath: (AliasConverter, from: Instance, to: Instance) -> (string, { string }),
-
-	convertAliases: (AliasConverter, path: string, relative: Instance) -> string,
+	getAbsolutePath: (self: AliasConverter, target: Instance) -> (string, { string }),
+	getRelativePath: (self: AliasConverter, from: Instance, to: Instance) -> (string, { string }),
+	convertAliases: (self: AliasConverter, path: string, relative: Instance) -> string,
 }
 
 type Self = AliasConverter & {
