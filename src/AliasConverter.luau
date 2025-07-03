@@ -2,6 +2,8 @@ export type AliasConverter = {
 	setRoot: (self: AliasConverter, root: Instance) -> AliasConverter,
 	registerAlias: (self: AliasConverter, alias: string, reference: Instance) -> AliasConverter,
 	deregisterAlias: (self: AliasConverter, alias: string) -> AliasConverter,
+	bulkRegisterAliases: (self: AliasConverter, references: { [string]: Instance }) -> AliasConverter,
+	bulkDeregisterAliases: (self: AliasConverter, aliases: { string }) -> AliasConverter,
 
 	getAbsolutePath: (self: AliasConverter, target: Instance) -> (string, { string }),
 	getRelativePath: (self: AliasConverter, from: Instance, to: Instance) -> (string, { string }),
@@ -19,7 +21,6 @@ local class = table.freeze {
 
 		return self
 	end,
-
 	registerAlias = function(self: Self, alias: string, reference: Instance): Self
 		self._aliases[alias] = reference
 
@@ -27,6 +28,20 @@ local class = table.freeze {
 	end,
 	deregisterAlias = function(self: Self, alias: string): Self
 		self._aliases[alias] = nil
+
+		return self
+	end,
+	bulkRegisterAliases = function(self: Self, references: { [string]: Instance }): Self
+		for alias, reference in references do
+			self._aliases[alias] = reference
+		end
+
+		return self
+	end,
+	bulkDeregisterAliases = function(self: Self, aliases: { string }): Self
+		for _, alias in aliases do
+			self._aliases[alias] = nil
+		end
 
 		return self
 	end,
@@ -78,7 +93,6 @@ local class = table.freeze {
 
 		return table.concat(relativeDirs, "/"), relativeDirs
 	end,
-
 	convertAliases = function(self: Self, path: string, relative: Instance): string
 		local converted = string.gsub(path, "@([^/]+)", function(alias: string)
 			if alias == "self" then
