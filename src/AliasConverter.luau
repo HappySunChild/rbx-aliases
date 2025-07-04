@@ -89,7 +89,7 @@ local class = table.freeze {
 		local parentCount = #originPath - common - 1
 		local relativeDirs = table.create(math.max(parentCount, 0), "..")
 
-		if parentCount == 0 and common == 1 then -- sibling
+		if parentCount == 0 and common >= 1 then -- sibling
 			table.insert(relativeDirs, ".")
 		elseif parentCount == -1 then -- descendant
 			table.insert(relativeDirs, "@self")
